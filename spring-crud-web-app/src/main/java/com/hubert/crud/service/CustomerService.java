@@ -3,6 +3,9 @@ package com.hubert.crud.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.hubert.crud.model.Customer;
@@ -32,6 +35,13 @@ public class CustomerService implements CustomerImpl {
 	@Override
 	public void deleteCustomer(long id) {
 		customerRepository.deleteById(id);
+	}
+
+	//Pagination
+	@Override
+	public Page<Customer> findPaginated(int pageNumber, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
+		return customerRepository.findAll(pageable);
 	}
 
 }

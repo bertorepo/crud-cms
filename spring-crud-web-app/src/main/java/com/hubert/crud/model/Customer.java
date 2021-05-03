@@ -30,12 +30,12 @@ public class Customer {
 	}
 
 
-	public Customer(Long id, String firstName, String lastName, String email) {
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-	}
+//	public Customer( Long id, String firstName, String lastName, String email) {
+//		this.id = id;
+//		this.firstName = firstName;
+//		this.lastName = lastName;
+//		this.email = email;
+//	}
 
 
 	public String getFirstName() {
@@ -76,5 +76,6 @@ public class Customer {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	
 }

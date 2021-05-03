@@ -51,7 +51,8 @@
 				<!-- form -->
 				<form th:action="@{/save-customer}" th:object="${customer}" method="post">
 					<div class="form-group">
-						<label>First Name</label> <input type="hidden" th:field="*{id}" /> 
+					<input type="hidden" th:field="*{id}" /> 
+						<label>First Name</label> 
 						<input
 							th:field="*{firstName}" type="text" class="form-control"
 							placeholder="first_name"

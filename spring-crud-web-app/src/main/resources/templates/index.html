@@ -9,13 +9,14 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
 	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
 	crossorigin="anonymous">
-	
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
-	
+
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 	crossorigin="anonymous"></script>
-	
+
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
@@ -36,14 +37,14 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
-					
-					<li class="nav-item active"> <a class="nav-link" th:href="@{/}"><i class="bi bi-people mr-2 icon"></i>Customer</a>
-					</li>
+
+					<li class="nav-item active"><a class="nav-link" th:href="@{/}"><i
+							class="bi bi-people mr-2 icon"></i>Customer</a></li>
 				</ul>
 			</div>
 		</nav>
 		<!-- end navbar -->
-		<h2 class="display-4 text-center head">Customer Management System</h2>
+		<h2 class="display-5 text-center head">Customer Management System</h2>
 
 		<div class="row justify-content-md-center">
 
@@ -51,13 +52,12 @@
 				<div class="wrapper">
 					<div align="left">
 						<h4 class="display-5">
-							<i class="bi bi-people-fill mr-3 icon"></i>Customer
-							Lists
+							<i class="bi bi-people-fill mr-3 icon"></i>Customer Lists
 						</h4>
 					</div>
 					<div align="right">
-						<a th:href="@{/new-customer}"
-							class="btn btn-success mb-3 shadow">+ Add Customer</a>
+						<a th:href="@{/new-customer}" class="btn btn-success mb-3 shadow">+
+							Add Customer</a>
 					</div>
 				</div>
 				<table class="table table-stripped">
@@ -74,18 +74,47 @@
 						<tr th:each="customer: ${listCustomers}">
 
 							<td th:text="${customer.firstName}"></td>
-								<td th:text="${customer.lastName}"></td>
-								<td th:text="${customer.email}"></td>
+							<td th:text="${customer.lastName}"></td>
+							<td th:text="${customer.email}"></td>
 							<td><a th:href="@{/editCustomer/} + ${customer.id}"
-								class="btn btn-sm btn-primary mb-3"><i class="bi bi-pencil-square mr-2 icon"></i>Edit</a> 
-								
-								<a
+								class="btn btn-sm btn-primary mb-3"><i
+									class="bi bi-pencil-square mr-2 icon"></i>Edit</a> <a
 								th:href="@{/deleteCustomer/} + ${customer.id}"
-								class="btn btn-sm btn-danger mb-3"><i class="bi bi-trash mr-2 icon"></i>Delete</a></td>
+								class="btn btn-sm btn-danger mb-3"><i
+									class="bi bi-trash mr-2 icon"></i>Delete</a></td>
 						</tr>
 					</tbody>
 				</table>
+				<!--  pagination-->
+				<div th:if="${totalPages > 1}">
+					
+					<nav aria-label="...">
+				
+						<ul class="pagination justify-content-end ">
+							
+							<li th:class="${pageNumber < totalPages ? 'page-item disabled' : ''}"><a class="page-link" th:href="@{'/page/' + ${pageNumber - 1}}"
+								tabindex="-1">Previous</a></li>
+							
+							<li th:each="i: ${#numbers.sequence(1, totalPages)}" th:class="${pageNumber == i ? 'page-item active' : 'page-item'}">
+							<a th:if="${pageNumber != i}" class="page-link" th:href="@{'/page/' + ${i}}">[[${i}]]
+									<span class="sr-only">(current)</span>
+							</a>
+							<a th:unless="${pageNumber != i}" class="page-link">[[${i}]]
+									
+							</a>
+							</li>
+							<li th:class="${pageNumber == totalPages ? 'page-item disabled' : ''}"><a class="page-link" th:href="@{'/page/' + ${pageNumber + 1}}"
+								tabindex="-1">Next</a></li>
+							</li>
+						</ul>
+					</nav>
+				</div>
+
+
 			</div>
+
+
+
 		</div>
 </body>
 </html>
