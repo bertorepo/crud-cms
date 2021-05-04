@@ -14,5 +14,5 @@ public interface CustomerImpl {
 	
 	//method for pagination
 	
-	Page<Customer> findPaginated(int pageNumber, int pageSize);
+	Page<Customer> findPaginated(int pageNumber, int pageSize, String sortField, String sortDirection);
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hubert.crud.model.Customer;
@@ -24,7 +25,7 @@ public class CustomerController {
 
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
-		return findPaginated(1, model);
+		return findPaginated(1, model, "firstName", "asc" );
 	}
 
 	@GetMapping("/new-customer")
@@ -39,7 +40,7 @@ public class CustomerController {
 		customerService.saveCustomer(customer);
 		return "redirect:/";
 	}
-	
+
 	@RequestMapping("/editCustomer/{id}")
 	public ModelAndView editCustomer(@PathVariable(name = "id") int id) {
 		ModelAndView mav = new ModelAndView("new-customer");
@@ -47,29 +48,40 @@ public class CustomerController {
 		mav.addObject(customer);
 		return mav;
 	}
-	
+
 	@RequestMapping("/deleteCustomer/{id}")
 	public String deleteCustomer(@PathVariable(name = "id") int id) {
 		customerService.deleteCustomer(id);
 		return "redirect:/";
 	}
-	
-	//Pagination
-	
+
+	// Pagination
+
 	@GetMapping("/page/{pageNumber}")
-	public String findPaginated(@PathVariable(value = "pageNumber") int pageNumber, Model model) {
+	public String findPaginated(@PathVariable(value = "pageNumber") int pageNumber, Model model,
+			@RequestParam("sortField") String sortField, @RequestParam("sortDir") String sortDirection
+
+	) {
 		int pageSize = 10;
-		
-		Page<Customer> page = customerService.findPaginated(pageNumber, pageSize);
+
+		Page<Customer> page = customerService.findPaginated(pageNumber, pageSize, sortField, sortDirection);
 		List<Customer> customerList = page.getContent();
 		
+		//passing data to thymeleaf template in pagination
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());
+		
+		//passing data to thymeleaf template in sort
+		model.addAttribute("sortField", sortField);
+		model.addAttribute("sortDir", sortDirection);
+		model.addAttribute("reverseSortDir", sortDirection.equals("asc") ? "desc" : "asc");
+		
+		//pass the customer list
 		model.addAttribute("listCustomers", customerList);
-		
+
 		return "index";
-		
+
 	}
-	
+
 }

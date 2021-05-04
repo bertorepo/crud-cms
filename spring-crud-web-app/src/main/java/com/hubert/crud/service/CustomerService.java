@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.hubert.crud.model.Customer;
@@ -39,9 +40,15 @@ public class CustomerService implements CustomerImpl {
 
 	//Pagination
 	@Override
-	public Page<Customer> findPaginated(int pageNumber, int pageSize) {
-		Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
+	public Page<Customer> findPaginated(int pageNumber, int pageSize, String sortField, String sortDirection) {
+		
+		//sort
+		Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+		
+		//pagination
+		Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
 		return customerRepository.findAll(pageable);
 	}
+
 
 }
