@@ -55,9 +55,4 @@ public class CustomerService implements CustomerImpl {
 	public Optional<Customer> findCustomerEmail(Customer customer) {
 		return customerRepository.findCustomerByEmail(customer.getEmail());
 	}
-
-
-	
-
-
 }

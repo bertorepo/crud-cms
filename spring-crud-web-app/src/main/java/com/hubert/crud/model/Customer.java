@@ -27,7 +27,7 @@ public class Customer {
 
 	@Column(name = "email")
 	@NotBlank(message = "Email should not be empty")
-	@Email(message = "Email shoul be valid")
+	@Email(message = "Email should be valid")
 	private String email;
 
 	public Customer() {
