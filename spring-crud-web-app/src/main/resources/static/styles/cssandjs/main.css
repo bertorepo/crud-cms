@@ -27,3 +27,7 @@ html, body {
 	align-items:center;
 	justify-content:space-between;
 }
+
+.field_error{
+	border:1px solid red;
+}

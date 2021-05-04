@@ -1,6 +1,7 @@
 package com.hubert.crud.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -49,6 +50,14 @@ public class CustomerService implements CustomerImpl {
 		Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
 		return customerRepository.findAll(pageable);
 	}
+
+	@Override
+	public Optional<Customer> findCustomerEmail(Customer customer) {
+		return customerRepository.findCustomerByEmail(customer.getEmail());
+	}
+
+
+	
 
 
 }
