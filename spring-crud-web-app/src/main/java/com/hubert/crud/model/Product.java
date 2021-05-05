@@ -1,10 +1,13 @@
 package com.hubert.crud.model;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,19 +18,22 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "product_name")
+	@Column(name = "product_name", nullable = false, unique = true)
 	private String productName;
 	@Column(name = "product_quantity")
 	private Integer quantity;
 	@Column(name = "product_price")
 	private Double price;
 	
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private Category category;
+	
 	public Product() {
 		
 	}
 
 	public Product(Long id, String productName, Integer quantity, Double price) {
-		super();
 		this.id = id;
 		this.productName = productName;
 		this.quantity = quantity;
@@ -66,8 +72,19 @@ public class Product {
 		this.price = price;
 	}
 
-	
-	
-	
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [productName=" + productName + ", quantity=" + quantity + ", price=" + price + ", category="
+				+ category + "]";
+	}
+
 	
 }

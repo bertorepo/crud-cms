@@ -43,7 +43,8 @@
 			</div>
 		</nav>
 		<!-- end navbar -->
-		<h2 class="display-4 text-center head">Customer Form</h2>
+		<h2 th:if="${customer.id == null}" class="display-4 text-center head">Create Customer Form</h2>
+		<h2 th:unless="${customer.id == null}" class="display-4 text-center head">Update Customer Form</h2>
 
 		<div class="row justify-content-md-center">
 
@@ -53,7 +54,7 @@
 					method="post">
 					<div class="form-group">
 
-						<input type="hidden" th:field="*{id}" /> <label>First
+						<input type="hidden" th:value="${customer.id}" th:field="*{id}" /> <label>First
 							Name</label> <input th:field="*{firstName}" type="text"
 							th:class="${#fields.hasErrors('firstName') ? 'form-control field_error' : 'form-control'}" placeholder="first_name">
 						<p th:if="${#fields.hasErrors('firstName')}"
@@ -78,7 +79,8 @@
 							class="text-danger mt-1">Email Already in the Database</p>
 					</div>
 
-					<button type="submit" class="btn btn-success">Submit</button>
+					<button th:if="${customer.id == null}" type="submit" class="btn btn-success">Add Customer</button>
+					<button th:unless="${customer.id == null}" type="submit" class="btn btn-success">Update Customer</button>
 					<a th:href="@{/}" class="btn btn-warning">Cancel</a>
 				</form>
 

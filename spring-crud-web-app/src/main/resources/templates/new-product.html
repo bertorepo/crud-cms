@@ -1,25 +1,17 @@
-<html
-	xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 <meta charset="utf-8" />
 <title>Create New Product</title>
 
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
-	crossorigin="anonymous">
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
 
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
-	crossorigin="anonymous"></script>
+<script src="webjars/jquery/3.6.0/jquery.slim.min.js"></script>
+
+<script src="/webjars/bootstrap/js/bootstrap.bundle.min.js"></script>
 <link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
 </head>
 <body>
@@ -38,14 +30,17 @@
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link" th:href="@{/}"><i
 							class="bi bi-people mr-2 icon"></i>Customer</a></li>
-							<li class="nav-item active"><a class="nav-link" th:href="@{/product}"><i
-							class="bi bi-tags-fill mr-2 icon"></i>Product</a></li>
+					<li class="nav-item active"><a class="nav-link"
+						th:href="@{/product}"><i class="bi bi-tags-fill mr-2 icon"></i>Product</a></li>
+						<li class="nav-item"><a class="nav-link"
+						th:href="@{/category}"><i class="bi bi-tags-fill mr-2 icon"></i>Category</a></li>
 
 				</ul>
 			</div>
 		</nav>
 		<!-- end navbar -->
-		<h2 class="display-4 text-center head">Product Form</h2>
+		<h2 th:if="${product.id == null}" class="display-4 text-center head">Create Product Form</h2>
+		<h2 th:unless="${product.id == null}" class="display-4 text-center head">Update Product Form</h2>
 
 		<div class="row justify-content-md-center">
 
@@ -55,34 +50,44 @@
 					method="post">
 					<div class="form-group">
 
-						<input type="hidden" th:field="*{id}" /> 
-						<label>Product Name</label> 
-						<input th:field="*{productName}" type="text"
+						<input type="hidden" th:value="${product.id}" th:field="*{id}" /> <label>Product
+							Name</label> <input th:field="*{productName}" type="text"
 							class="form-control" placeholder="product_name">
 						<!-- <p th:if="${#fields.hasErrors('firstName')}"
 							th:errors="*{firstName}" class="text-danger mt-1"></p> -->
 					</div>
 					<div class="form-group">
 
-						<label>Product Price</label> 
-						<input th:field="*{price}" type="number"
-							class="form-control" placeholder="enter price" step="any">
+						<label>Product Price</label> <input th:field="*{price}"
+							type="number" class="form-control" placeholder="enter price"
+							step="any">
 						<!-- <p th:if="${#fields.hasErrors('lastName')}"
 							th:errors="*{lastName}" class="text-danger mt-1"></p> -->
 					</div>
 					<div class="form-group">
 
-						<label>Product Quantity</label> <input type="number" th:field="*{quantity}"
-							placeholder="quantity" class="form-control">
-					<!-- 	<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+						<label>Product Quantity</label> <input type="number"
+							th:field="*{quantity}" placeholder="quantity"
+							class="form-control">
+						<!-- 	<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
 							class="text-danger mt-1"></p> -->
-							
-							<!-- if you want to check id product already exist -->
-<!-- 							<p th:if="${existedProduct}"
+
+						<!-- if you want to check id product already exist -->
+						<!-- 							<p th:if="${existedProduct}"
 							class="text-danger mt-1">Product Already in the Database</p> -->
 					</div>
 
-					<button type="submit" class="btn btn-success">Submit</button>
+					<div class="form-group">
+						<label for="exampleFormControlSelect2">Select Product
+							Category</label> 
+							<select th:field="*{category}" class="form-control">
+							<option th:each="cat: ${categoryList}" th:text="${cat.name}" th:value="${cat.id}"></option>
+							
+						</select>
+					</div>
+
+					<button th:if="${product.id == null}" type="submit" class="btn btn-success">Add product</button>
+					<button th:unless="${product.id == null}" type="submit" class="btn btn-success">Update product</button>
 					<a th:href="@{/product}" class="btn btn-warning">Cancel</a>
 				</form>
 

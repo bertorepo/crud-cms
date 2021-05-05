@@ -101,6 +101,12 @@
 									th:class="${sortDir == 'asc' ? 'bi bi-sort-alpha-down text-success ml-2' : 'bi bi-sort-alpha-up text-success ml-2'}"></i>
 							</a> -->
 							</th>
+							<th scope="col">Category<!-- <a
+								th:href="@{'/page/' + ${pageNumber} + '?sortField=email&sortDir=' + ${reverseSortDir}}">
+									<i
+									th:class="${sortDir == 'asc' ? 'bi bi-sort-alpha-down text-success ml-2' : 'bi bi-sort-alpha-up text-success ml-2'}"></i>
+							</a> -->
+							</th>
 							<th scope="col">Actions</th>
 						</tr>
 					</thead>
@@ -108,8 +114,9 @@
 						<tr th:each="product: ${productList}">
 
 							<td th:text="${product.productName}"></td>
-							<td th:text="'$' + ${product.price}"></td>
+							<td th:text="'$ ' + ${product.price}"></td>
 							<td th:text="${product.quantity}"></td>
+							<td th:text="${product.category.name}"></td>
 							<td><a th:href="@{/editProduct/} + ${product.id}"
 								class="btn btn-sm btn-primary mb-3"><i
 									class="bi bi-pencil-square mr-2 icon"></i>Edit</a> <a
