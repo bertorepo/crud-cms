@@ -1,0 +1,27 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<!-- Navbar -->
+	<nav th:fragment="navbar(active)" class="navbar navbar-expand-lg navbar-dark bg-success shadow">
+		<a class="navbar-brand" th:href="@{/}">CMS_</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNav" aria-controls="navbarNav"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+
+				<li th:class="${active == 'customer' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" th:href="@{/}"><i
+						class="bi bi-people mr-2 icon"></i>Customer</a></li>
+
+				<li th:class="${active == 'product' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" th:href="@{/product}"><i
+						class="bi bi-people mr-2 icon"></i>Product</a></li>
+				<li th:class="${active == 'category' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" th:href="@{/category}"><i
+						class="bi bi-tags-fill mr-2 icon"></i>Category</a></li>
+			</ul>
+		</div>
+	</nav>
+	<!-- end navbar -->
+</body>
+</html>
