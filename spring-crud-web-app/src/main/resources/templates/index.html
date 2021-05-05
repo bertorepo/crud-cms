@@ -72,7 +72,7 @@
 							Add Customer</a>
 					</div>
 				</div>
-				<table class="table table-stripped">
+				<table class="table table-stripped table-sm">
 					<thead class="thead-dark">
 						<tr>
 
@@ -100,7 +100,7 @@
 					<tbody>
 						<tr th:each="customer: ${listCustomers}">
 
-							<td th:text="${customer.firstName}"></td>
+							<td><i class="bi bi-person-bounding-box text-success mr-3"></i>[[${customer.firstName}]]</td>
 							<td th:text="${customer.lastName}"></td>
 							<td th:text="${customer.email}"></td>
 							<td><a th:href="@{/editCustomer/} + ${customer.id}"
@@ -139,7 +139,6 @@
 								class="page-link"
 								th:href="@{'/page/' + ${pageNumber + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
 								tabindex="-1">Next</a></li>
-							</li>
 						</ul>
 					</nav>
 				</div>

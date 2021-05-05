@@ -81,7 +81,7 @@ public class CustomerController {
 			@RequestParam("sortField") String sortField, @RequestParam("sortDir") String sortDirection
 
 	) {
-		int pageSize = 10;
+		int pageSize = 7;
 
 		Page<Customer> page = customerService.findPaginated(pageNumber, pageSize, sortField, sortDirection);
 		List<Customer> customerList = page.getContent();

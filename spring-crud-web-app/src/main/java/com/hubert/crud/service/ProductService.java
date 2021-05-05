@@ -2,6 +2,8 @@ package com.hubert.crud.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.hubert.crud.model.Product;
 
 public interface ProductService {
@@ -9,4 +11,7 @@ public interface ProductService {
 	void saveProduct(Product product);
 	void deleteProduct(long id);
 	Product getProduct(long id);
+	
+	Page<Product> findPaginatedProduct(int pageNumber, int pageSize, String sortField, String sortDirection);
+	
 }

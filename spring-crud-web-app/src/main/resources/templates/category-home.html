@@ -70,15 +70,15 @@
 							Add Category</a>
 					</div>
 				</div>
-				<table class="table table-stripped">
+				<table class="table table-stripped table-sm">
 					<thead class="thead-dark">
 						<tr>
 
-							<th scope="col">Category Name<!-- <a
-								th:href="@{'/page/' + ${pageNumber} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">
+							<th scope="col">Category Name<a
+								th:href="@{'/categoryPage/' + ${pageNumber} + '?sortField=name&sortDir=' + ${reverseSortDir}}">
 									<i
 									th:class="${sortDir == 'asc' ? 'bi bi-sort-alpha-down text-success ml-2' : 'bi bi-sort-alpha-up text-success ml-2'}"></i>
-							</a> -->
+							</a>
 							</th>
 							<th scope="col">Actions</th>
 						</tr>
@@ -86,7 +86,7 @@
 					<tbody>
 						<tr th:each="category: ${categoryList}">
 
-							<td th:text="${category.name}"></td>
+							<td><i class="bi bi-tags-fill mr-3 text-success icon"></i>[[${category.name}]]</td>
 							<td><a th:href="@{/editCategory/} + ${category.id}"
 								class="btn btn-sm btn-primary mb-3"><i
 									class="bi bi-pencil-square mr-2 icon"></i>Edit</a> <a
@@ -97,7 +97,7 @@
 					</tbody>
 				</table>
 				<!--  pagination-->
-				<!-- <div th:if="${totalPages > 1}">
+				<div th:if="${totalPages > 1}">
 
 					<nav aria-label="...">
 
@@ -106,13 +106,13 @@
 							<li
 								th:class="${pageNumber < totalPages ? 'page-item disabled' : ''}"><a
 								class="page-link"
-								th:href="@{'/page/' + ${pageNumber - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+								th:href="@{'/categoryPage/' + ${pageNumber - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
 								tabindex="-1">Previous</a></li>
 
 							<li th:each="i: ${#numbers.sequence(1, totalPages)}"
 								th:class="${pageNumber == i ? 'page-item active' : 'page-item'}">
 								<a th:if="${pageNumber != i}" class="page-link"
-								th:href="@{'/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]
+								th:href="@{'/categoryPage/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]
 									<span class="sr-only">(current)</span>
 							</a> <a th:unless="${pageNumber != i}" class="page-link">[[${i}]]
 
@@ -121,12 +121,12 @@
 							<li
 								th:class="${pageNumber == totalPages ? 'page-item disabled' : ''}"><a
 								class="page-link"
-								th:href="@{'/page/' + ${pageNumber + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+								th:href="@{'/categoryPage/' + ${pageNumber + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
 								tabindex="-1">Next</a></li>
-							</li>
+							
 						</ul>
 					</nav>
-				</div> -->
+				</div>
 				<!--  end pagination-->
 
 			</div>

@@ -80,11 +80,5 @@ public class Product {
 		this.category = category;
 	}
 
-	@Override
-	public String toString() {
-		return "Product [productName=" + productName + ", quantity=" + quantity + ", price=" + price + ", category="
-				+ category + "]";
-	}
-
 	
 }
