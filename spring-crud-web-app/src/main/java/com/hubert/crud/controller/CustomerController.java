@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +23,13 @@ import com.hubert.crud.model.Customer;
 import com.hubert.crud.service.CustomerService;
 
 @Controller
-public class CustomerController {
+public class CustomerController extends TrimmerEditor {
+
+
+	@Override
+	public void trimWhiteSpace(WebDataBinder binder) {
+		super.trimWhiteSpace(binder);
+	}
 
 	@Autowired
 	private CustomerService customerService;

@@ -2,10 +2,14 @@ package com.hubert.crud.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +23,12 @@ import com.hubert.crud.service.CategoryService;
 import com.hubert.crud.service.ProductServiceImpl;
 
 @Controller
-public class ProductController {
+public class ProductController extends TrimmerEditor {
+
+	@Override
+	public void trimWhiteSpace(WebDataBinder binder) {
+		super.trimWhiteSpace(binder);
+	}
 
 	@Autowired
 	private ProductServiceImpl productService;
@@ -40,7 +49,13 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/save-product", method = RequestMethod.POST)
-	public String saveProduct(@ModelAttribute("product") Product product) {
+	public String saveProduct(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult, Model model) {
+		
+		model.addAttribute("categoryList", categoryService.getProductCategory());
+		if(bindingResult.hasErrors()){
+			return "/new-product";
+		}
+
 		productService.saveProduct(product);
 		return "redirect:/product";
 	}

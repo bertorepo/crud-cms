@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-SpringCrudWebAppApplication<spring-crud-web-app>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "mainClass": "com.hubert.crud.SpringCrudWebAppApplication",
+      "projectName": "spring-crud-web-app",
+      "args": ""
+    }
+  ]
+}

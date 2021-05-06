@@ -1,38 +1,59 @@
 <html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="fragments/header :: header" />
+  <body>
+    <div class="container pb-4">
+      <!-- Navbar -->
+      <nav th:replace="fragments/navbar :: navbar(active='category')" />
+      <!-- end navbar -->
+      <h2 th:if="${category.id == null}" class="display-4 text-center head">
+        Create Category Form
+      </h2>
+      <h2 th:unless="${category.id == null}" class="display-4 text-center head">
+        Update Category Form
+      </h2>
 
-<head th:replace="fragments/header :: header" />
-<body>
+      <div class="row justify-content-md-center">
+        <div class="col-sm-6">
+          <!-- form -->
+          <form
+            th:action="@{/save-category}"
+            th:object="${category}"
+            method="post"
+          >
+            <div class="form-group">
+              <input type="hidden" th:value="${category.id}" th:field="*{id}" />
+              <label>Category Name</label>
+              <input
+                th:field="*{name}"
+                type="text"
+                th:class="${#fields.hasErrors('name') ? 'form-control field_error' : 'form-control'}"
+                placeholder="category_name"
+              />
+              <p
+                th:if="${#fields.hasErrors('name')}"
+                th:errors="*{name}"
+                class="text-danger mt-1"
+              ></p>
+            </div>
 
-
-	<div class="container pb-4">
-		<!-- Navbar -->
-		<nav th:replace="fragments/navbar :: navbar(active='category')" />
-		<!-- end navbar -->
-		<h2 th:if="${category.id == null}" class="display-4 text-center head">Create Category Form</h2>
-		<h2 th:unless="${category.id == null}" class="display-4 text-center head">Update Category Form</h2>
-
-		<div class="row justify-content-md-center">
-
-			<div class="col-sm-6">
-				<!-- form -->
-				<form th:action="@{/save-category}" th:object="${category}"
-					method="post">
-					<div class="form-group">
-
-						<input type="hidden" th:value="${category.id}" th:field="*{id}" /> <label>Category
-							Name</label> <input th:field="*{name}" type="text" class="form-control"
-							placeholder="category_name">
-						<!-- <p th:if="${#fields.hasErrors('firstName')}"
-							th:errors="*{firstName}" class="text-danger mt-1"></p> -->
-					</div>
-
-					<button th:if="${category.id == null}" type="submit" class="btn btn-success">Add Category</button>
-					<button th:unless="${category.id == null}" type="submit" class="btn btn-success">Update Category</button>
-					<a th:href="@{/category}" class="btn btn-warning">Cancel</a>
-				</form>
-
-			</div>
-		</div>
-		</div>
-</body>
+            <button
+              th:if="${category.id == null}"
+              type="submit"
+              class="btn btn-success"
+            >
+              Add Category
+            </button>
+            <button
+              th:unless="${category.id == null}"
+              type="submit"
+              class="btn btn-success"
+            >
+              Update Category
+            </button>
+            <a th:href="@{/category}" class="btn btn-warning">Cancel</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

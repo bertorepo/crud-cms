@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "customers")
@@ -18,15 +20,17 @@ public class Customer {
 	private Long id;
 
 	@Column(name = "first_name")
-	@NotBlank(message = "First Name should not be empty")
+	@NotEmpty(message = "First Name should not be empty")
+	@Size(min = 2, message = "At least 2 characters")
 	private String firstName;
 
 	@Column(name = "last_name")
-	@NotBlank(message = "Last Name should not be empty")
+	@NotEmpty(message = "First Name should not be empty")
+	@Size(min = 2, message = "At least 2 characters")
 	private String lastName;
 
 	@Column(name = "email")
-	@NotBlank(message = "Email should not be empty")
+	@NotEmpty(message = "First Name should not be empty")
 	@Email(message = "Email should be valid")
 	private String email;
 

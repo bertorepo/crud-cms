@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "product_category")
@@ -18,6 +20,8 @@ public class Category {
 	private Long id;
 
 	@Column(name = "category_name", nullable = false, unique = true)
+	@NotEmpty(message = "name should not be empty")
+	@Size(min = 3, max = 20, message = "at least 3 characters")
 	private String name;
 
 
